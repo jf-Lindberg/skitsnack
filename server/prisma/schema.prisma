@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  active        Boolean        @default(true)
+  email         String         @unique
+  password      String
+  refreshTokens RefreshToken[]
+  userType      String         @default("USER")
+  username      String?        @unique
+  name          String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  posts         Post[]         @relation("UserAuthorsPost")
+  likedPosts    Post[]
+  comments      Comment[]      @relation("UserAuthorsComment")
+  likedComments Comment[]
+}
+
+model RefreshToken {
+  id          String   @id @unique @default(uuid())
+  hashedToken String
+  userId      String
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Post {
+  id        String    @id @default(uuid())
+  title     String
+  content   String
+  published Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  author    User      @relation("UserAuthorsPost", fields: [authorId], references: [id])
+  authorId  String
+  likedBy   User[]
+  comments  Comment[] @relation("PostHasComment")
+}
+
+model Comment {
+  id        String    @id @default(uuid())
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  author    User      @relation("UserAuthorsComment", fields: [authorId], references: [id])
+  authorId  String
+  post      Post      @relation("PostHasComment", fields: [postId], references: [id])
+  postId    String
+  Children  Comment[] @relation("CommentChildren")
+  parent    Comment?  @relation("CommentChildren", fields: [parentId], references: [id])
+  parentId  String?
+  likedBy   User[]
+}
