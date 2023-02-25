@@ -1,7 +1,7 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
 import { usersServices } from '../../services/users.services';
-import isAuthenticated from '../../middleware/authMiddleware';
-import { type User } from '../../models/User';
+import isAuthenticated from '../../middleware/auth-middleware';
+import { type User } from '../../types/models/User';
 
 const router = express.Router();
 

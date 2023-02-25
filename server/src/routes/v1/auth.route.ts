@@ -2,7 +2,7 @@ import express, { type Request, type Response, type NextFunction } from 'express
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import jwt, { type JwtPayload } from 'jsonwebtoken';
-import hashToken from '../../utils/hashToken';
+import hashToken from '../../utils/hash-token';
 import { generateTokens } from '../../utils/jwt';
 import {
     addRefreshTokenToWhitelist,

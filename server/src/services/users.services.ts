@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import prisma from '../utils/prisma';
-import { type User } from '../models/User';
+import { type User } from '../types/models/User';
 
 export const usersServices = {
     createUserByEmailAndPassword: (user: { email: string; password: string }) => {

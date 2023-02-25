@@ -1,5 +1,5 @@
 import prisma from '../utils/prisma';
-import hashToken from '../utils/hashToken';
+import hashToken from '../utils/hash-token';
 
 // used when we create a refresh token.
 export function addRefreshTokenToWhitelist(jti: string, refreshToken: string, userId: string) {

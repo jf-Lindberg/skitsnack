@@ -1,6 +1,6 @@
 import prisma from '../utils/prisma';
-import { type PostRequestBody } from '../requests/PostRequestBody';
-import { type Post } from '../models/Post';
+import { type PostRequestBody } from '../types/requests/PostRequestBody';
+import { type Post } from '../types/models/Post';
 
 export const postsServices = {
     findAllPosts: async () => {

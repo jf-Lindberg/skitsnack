@@ -1,7 +1,7 @@
 import prisma from '../utils/prisma';
-import { type Comment } from '../models/Comment';
-import { type Post } from '../models/Post';
-import { type CommentRequestBody } from '../requests/CommentRequestBody';
+import { type Comment } from '../types/models/Comment';
+import { type Post } from '../types/models/Post';
+import { type CommentRequestBody } from '../types/requests/CommentRequestBody';
 
 export const commentsServices = {
     findAllComments: async () => {
