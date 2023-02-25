@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type {Post} from "@/interfaces/Post";
-const props = defineProps<{post: Post;}>();
+defineProps<{post: Post;}>();
 </script>
 
 <template>
-    <p>{{ post.id }}</p>
+    <p class="font-black">{{ post.id }}</p>
     <p>{{ post.title }}</p>
 </template>

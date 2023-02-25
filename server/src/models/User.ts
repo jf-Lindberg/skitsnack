@@ -1,4 +1,4 @@
-import type {Post} from "./Post";
+import type { Post } from './Post';
 
 export interface User {
     id: string;

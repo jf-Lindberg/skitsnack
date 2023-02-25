@@ -1,4 +1,4 @@
-import type {Post} from "../models/Post";
+import type { Post } from '../models/Post';
 
 export interface CommentRequestBody {
     content: string;

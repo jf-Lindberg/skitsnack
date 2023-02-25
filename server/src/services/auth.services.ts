@@ -1,7 +1,5 @@
-import db from "../utils/db";
+import prisma from '../utils/prisma';
 import hashToken from '../utils/hashToken';
-
-const prisma = db;
 
 // used when we create a refresh token.
 export function addRefreshTokenToWhitelist(jti: string, refreshToken: string, userId: string) {
@@ -10,7 +8,7 @@ export function addRefreshTokenToWhitelist(jti: string, refreshToken: string, us
             id: jti,
             hashedToken: hashToken(refreshToken),
             userId
-        },
+        }
     });
 }
 
@@ -18,8 +16,8 @@ export function addRefreshTokenToWhitelist(jti: string, refreshToken: string, us
 export function findRefreshTokenById(id: string) {
     return prisma.refreshToken.findUnique({
         where: {
-            id,
-        },
+            id
+        }
     });
 }
 
@@ -27,7 +25,7 @@ export function findRefreshTokenById(id: string) {
 export function deleteRefreshToken(id: string) {
     return prisma.refreshToken.update({
         where: {
-            id,
+            id
         },
         data: {
             revoked: true
@@ -35,8 +33,8 @@ export function deleteRefreshToken(id: string) {
     });
 }
 
-export function revokeTokens(userId: string) {
-    return prisma.refreshToken.updateMany({
+export async function revokeTokens(userId: string) {
+    return await prisma.refreshToken.updateMany({
         where: {
             userId
         },

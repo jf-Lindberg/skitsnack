@@ -1,4 +1,4 @@
-import type {User} from "./User";
+import type { User } from './User';
 
 export interface Post {
     id: string;
@@ -8,7 +8,7 @@ export interface Post {
     createdAt: Date;
     editedAt?: Date;
     author: User;
-    authorId: String;
+    authorId: string;
     likedBy: User[];
-    comments: Comment[]
+    comments: Comment[];
 }

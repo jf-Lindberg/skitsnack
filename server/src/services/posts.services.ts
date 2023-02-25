@@ -1,7 +1,6 @@
-import db from "../utils/db";
-import {PostRequestBody} from "../requests/PostRequestBody";
-import {Post} from "../models/Post";
-const prisma = db;
+import prisma from '../utils/prisma';
+import { type PostRequestBody } from '../requests/PostRequestBody';
+import { type Post } from '../models/Post';
 
 export const postsServices = {
     findAllPosts: async () => {
@@ -15,7 +14,7 @@ export const postsServices = {
     },
     findPostById: async (id: Post['id']) => {
         return await prisma.post.findUnique({
-            where: {id},
+            where: { id },
             include: {
                 author: true,
                 likedBy: true,
@@ -24,20 +23,20 @@ export const postsServices = {
         });
     },
     publishPost: async (body: PostRequestBody) => {
-        const {title, content, authorEmail} = body;
+        const { title, content, authorEmail } = body;
         return await prisma.post.create({
             data: {
                 title,
                 content,
-                author: {connect: {email: authorEmail}},
+                author: { connect: { email: authorEmail } },
                 published: true
             }
         });
     },
     updatePostById: async (id: Post['id'], body: PostRequestBody) => {
-        const {title, content} = body;
+        const { title, content } = body;
         return await prisma.post.update({
-            where: {id},
+            where: { id },
             data: {
                 title,
                 content
@@ -45,7 +44,7 @@ export const postsServices = {
         });
     },
     deletePostById: async (id: Post['id']) => {
-        return await prisma.post.delete({where: {id}});
-    },
+        return await prisma.post.delete({ where: { id } });
+    }
     // likePost: async (id: Post['id'], user: User['id'])
-}
+};
