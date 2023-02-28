@@ -1,6 +1,5 @@
-import { type User } from '../types/models/User';
-
 import * as jwt from 'jsonwebtoken';
+import type { User } from '@prisma/client';
 
 // Usually I keep the token between 5 minutes - 15 minutes
 export function generateAccessToken(user: User) {

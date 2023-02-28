@@ -1,13 +1,11 @@
-import express, { type Request, type Response, type NextFunction } from 'express';
+import express from 'express';
+import { index } from '../../controllers/index.controller';
+import { catchErrors, errorHandler } from '../../middleware/error.middleware';
 
-const router = express.Router();
+const indexRoutes = express.Router();
 
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-    res.send('GET - Hello from index Route!');
-});
+indexRoutes.get('/', catchErrors(index));
 
-router.get('/test', async (req: Request, res: Response, next: NextFunction) => {
-    res.send('GET - Hello from index Route!');
-});
+indexRoutes.use(errorHandler);
 
-export { router as indexRouter };
+export { indexRoutes };

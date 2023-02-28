@@ -1,60 +1,27 @@
-import express, { type NextFunction, type Request, type Response } from 'express';
-import { commentsServices } from '../../services/comments.services';
+import express from 'express';
+import { catchErrors, errorHandler } from '../../middleware/error.middleware';
+import {
+    deleteComment,
+    getAllComments,
+    getComment,
+    postComment_,
+    postReplyToComment
+} from '../../controllers/comments.controller';
 
-const router = express.Router();
+const commentRoutes = express.Router();
 
-router.get('/comments', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const comments = await commentsServices.findAllComments();
-        if (comments === null) return res.sendStatus(404);
-        return res.status(200).send(comments);
-    } catch {
-        return res.sendStatus(500);
-    }
-});
+commentRoutes.get('/', catchErrors(getAllComments));
 
-router.get('/comments/:id', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { id } = req.params;
-        const comment = await commentsServices.findCommentById(id);
-        if (comment === null) return res.sendStatus(404);
-        return res.status(200).send(comment);
-    } catch {
-        return res.sendStatus(500);
-    }
-});
+commentRoutes.get('/:id', catchErrors(getComment));
 
-router.delete('/comments/:id', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { id } = req.params;
-        const comment = await commentsServices.deleteCommentById(id);
-        if (comment === null) return res.sendStatus(404);
-        return res.sendStatus(204);
-    } catch {
-        return res.sendStatus(500);
-    }
-});
+commentRoutes.delete('/:id', catchErrors(deleteComment));
 
-router.post('/post/:id/comment', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { id } = req.params;
-        const comment = await commentsServices.postComment(id, req.body);
-        if (comment === null) return res.sendStatus(404);
-        return res.status(201).send(comment);
-    } catch {
-        return res.sendStatus(500);
-    }
-});
+// look into better routes for this
+commentRoutes.post('/post/:id/comment', catchErrors(postComment_));
 
-router.post('/comment/:id/reply', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { id } = req.params;
-        const comment = await commentsServices.replyToCommentById(id, req.body);
-        if (comment === null) return res.sendStatus(404);
-        return res.status(201).send(comment);
-    } catch {
-        return res.sendStatus(500);
-    }
-});
+// look into better routes for this, maybe have children as child of posts?
+commentRoutes.post('/comment/:id/reply', catchErrors(postReplyToComment));
 
-export { router as commentRouter };
+commentRoutes.use(errorHandler);
+
+export { commentRoutes };
