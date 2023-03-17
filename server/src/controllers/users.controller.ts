@@ -25,8 +25,8 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
 };
 
 export const getProfile = async (req: Request, res: Response, next: NextFunction) => {
-    const { userId } = req.body;
-    const user = (await findUserById(userId)) as Partial<User>;
+    const { id } = req.params;
+    const user = (await findUserById(id)) as Partial<User>;
     delete user.password;
     res.json(user);
 };

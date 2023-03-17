@@ -14,7 +14,7 @@ export const findAllComments = async () => {
 };
 
 export const findCommentById = async (id: Comment['id']) => {
-    return await prisma.comment.findMany({
+    const comment = await prisma.comment.findUnique({
         where: { id },
         include: {
             author: true,
@@ -23,6 +23,8 @@ export const findCommentById = async (id: Comment['id']) => {
             parent: true
         }
     });
+
+    return comment ?? null;
 };
 
 export const deleteCommentById = async (id: Comment['id']) => {

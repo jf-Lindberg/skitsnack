@@ -7,6 +7,9 @@ import {
     putPost,
     deletePost
 } from '../../controllers/posts.controller';
+import { check } from 'express-validator';
+import { validateRequest } from '../../middleware/validation.middleware';
+// import isAuthenticated from '../../middleware/auth.middleware';
 
 const postRoutes = express.Router();
 
@@ -14,7 +17,13 @@ postRoutes.get('/', catchErrors(getAllPosts));
 
 postRoutes.get('/:id', catchErrors(getPost));
 
-postRoutes.post('/', catchErrors(postPost));
+postRoutes.post(
+    '/',
+    [check(['title', 'content', 'authorEmail']).notEmpty(), check('authorEmail').isEmail()],
+    validateRequest,
+    // isAuthenticated,
+    catchErrors(postPost)
+);
 
 postRoutes.put('/:id', catchErrors(putPost));
 

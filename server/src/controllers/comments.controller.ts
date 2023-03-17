@@ -18,7 +18,6 @@ export const getComment = async (req: Request, res: Response, next: NextFunction
     const comment = await findCommentById(id);
     if (comment === null) return res.sendStatus(404);
     return res.status(200).send(comment);
-    return res.sendStatus(500);
 };
 
 export const deleteComment = async (req: Request, res: Response, next: NextFunction) => {

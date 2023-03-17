@@ -1,6 +1,7 @@
 import prisma from '../utils/prisma';
 import type { Post } from '@prisma/client';
 import type { PostRequestBody } from '../types/requests';
+import { ResponseError } from '../errors/ResponseError';
 
 export const findAllPosts = async (): Promise<Post[]> => {
     const posts = await prisma.post.findMany({
@@ -25,28 +26,41 @@ export const findPostById = async (id: Post['id']): Promise<Post | null> => {
     return post ?? null;
 };
 
+// rename to createPost
 export const publishPost = async (body: PostRequestBody): Promise<Post> => {
     const { title, content, authorEmail } = body;
     const author = { connect: { email: authorEmail } };
-    return await prisma.post.create({
-        data: {
-            title,
-            content,
-            author,
-            published: true
-        }
-    });
+    try {
+        const post = await prisma.post.create({
+            data: {
+                title,
+                content,
+                author,
+                published: true
+            }
+        });
+
+        return post ?? null;
+    } catch (e) {
+        throw new ResponseError('Unable to create post.', 500);
+    }
 };
 
 export const updatePostById = async (id: Post['id'], body: Partial<Post>): Promise<Post> => {
     const { title, content } = body;
-    return await prisma.post.update({
-        where: { id },
-        data: {
-            title,
-            content
-        }
-    });
+    try {
+        const post = await prisma.post.update({
+            where: { id },
+            data: {
+                title,
+                content
+            }
+        });
+
+        return post;
+    } catch (e) {
+        throw new ResponseError('Unable to update post', 500);
+    }
 };
 
 export const deletePostById = async (id: Post['id']): Promise<Post> => {
