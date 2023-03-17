@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest -i",
-    "dev": "tsnd --respawn src/index.ts",
-    "lint": "npx eslint . --fix"
+    "test": "dotenv -e .env.test jest -i",
+    "test-env-api": "dotenv -e .env.test -- tsnd --respawn src/index.ts",
+    "dev": "dotenv -e .env.development -- tsnd --respawn src/index.ts",
+    "lint": "dotenv -e .env.development npx eslint . --fix"
   },
   "jest": {
     "transformIgnorePatterns": [
