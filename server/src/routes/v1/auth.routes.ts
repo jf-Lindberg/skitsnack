@@ -7,12 +7,14 @@ import {
     refreshToken,
     revokeRefreshTokens
 } from '../../controllers/auth.controller';
+import { validateRequest } from '../../middleware/validation.middleware';
 
 const authRoutes = express.Router();
 
 authRoutes.post(
     '/login',
     [check('email').isEmail(), check('password').isLength({ min: 8 })],
+    validateRequest,
     // validateInputs(login)?
     catchErrors(login)
 );
@@ -20,6 +22,7 @@ authRoutes.post(
 authRoutes.post(
     '/register',
     [check('email').isEmail(), check('password').isLength({ min: 8 })],
+    validateRequest,
     // validateInputs(register)?
     catchErrors(register)
 );
