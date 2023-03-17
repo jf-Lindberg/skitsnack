@@ -58,6 +58,7 @@ describe('publishPost', () => {
             expect(true).toBe(false);
         } catch (e) {
             expect(e).toBeInstanceOf(ResponseError);
+            expect(e.status).toBe(500);
         }
     });
 
@@ -72,6 +73,7 @@ describe('publishPost', () => {
             expect(true).toBe(false);
         } catch (e) {
             expect(e).toBeInstanceOf(ResponseError);
+            expect(e.status).toBe(500);
         }
     });
 
@@ -86,6 +88,7 @@ describe('publishPost', () => {
             expect(true).toBe(false);
         } catch (e) {
             expect(e).toBeInstanceOf(ResponseError);
+            expect(e.status).toBe(500);
         }
     });
 
@@ -100,6 +103,7 @@ describe('publishPost', () => {
             expect(true).toBe(false);
         } catch (e) {
             expect(e).toBeInstanceOf(ResponseError);
+            expect(e.status).toBe(500);
         }
     });
 
@@ -116,6 +120,7 @@ describe('publishPost', () => {
             expect(true).toBe(false);
         } catch (e) {
             expect(e).toBeInstanceOf(ResponseError);
+            expect(e.status).toBe(500);
         }
     });
 
@@ -132,6 +137,7 @@ describe('publishPost', () => {
             expect(true).toBe(false);
         } catch (e) {
             expect(e).toBeInstanceOf(ResponseError);
+            expect(e.status).toBe(500);
         }
     });
 
@@ -148,6 +154,7 @@ describe('publishPost', () => {
             expect(true).toBe(false);
         } catch (e) {
             expect(e).toBeInstanceOf(ResponseError);
+            expect(e.status).toBe(500);
         }
     });
 });
