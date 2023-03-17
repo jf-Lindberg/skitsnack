@@ -1,13 +1,13 @@
-import type { Post } from '@prisma/client';
+import type { Post, User, Comment } from '@prisma/client';
 
 export interface CommentRequestBody {
-    content: string;
-    authorEmail: string;
+    content: Comment['content'];
+    authorEmail: User['email'];
     postId: Post['id'];
 }
 
 export interface PostRequestBody {
-    title: string;
-    content: string;
-    authorEmail: string;
+    title: Post['title'];
+    content: Post['content'];
+    authorEmail: User['email'];
 }
