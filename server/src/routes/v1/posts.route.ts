@@ -2,9 +2,9 @@ import express from 'express';
 import { catchErrors, errorHandler } from '../../middleware/error.middleware';
 import {
     getAllPosts,
-    getPost,
-    postPost,
-    putPost,
+    getPostById,
+    createPost,
+    updatePost,
     deletePost
 } from '../../controllers/posts.controller';
 import { check } from 'express-validator';
@@ -15,18 +15,27 @@ const postRoutes = express.Router();
 
 postRoutes.get('/', catchErrors(getAllPosts));
 
-postRoutes.get('/:id', catchErrors(getPost));
+postRoutes.get('/:id', catchErrors(getPostById));
 
 postRoutes.post(
     '/',
     [check(['title', 'content', 'authorEmail']).notEmpty(), check('authorEmail').isEmail()],
     validateRequest,
     // isAuthenticated,
-    catchErrors(postPost)
+    catchErrors(createPost)
 );
 
-postRoutes.put('/:id', catchErrors(putPost));
+// add check & validateRequest after
+// add isAuthenticated
+postRoutes.put(
+    '/:id',
+    [check('title', 'content').notEmpty()],
+    validateRequest,
+    catchErrors(updatePost)
+);
 
+// add check & validateRequest
+// add isAuthenticated
 postRoutes.delete('/:id', catchErrors(deletePost));
 
 postRoutes.use(errorHandler);
