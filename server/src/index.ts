@@ -4,7 +4,6 @@ import morgan from 'morgan';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { api } from './api';
-// import { validateRequest } from './middleware/validation.middleware';
 
 const app = express();
 const port = process.env.PORT ?? 3000;
@@ -14,7 +13,6 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true })); // set to false when done with project
-// app.use(validateRequest);
 
 app.use('/api', api);
 

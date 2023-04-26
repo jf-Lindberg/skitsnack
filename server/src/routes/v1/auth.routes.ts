@@ -15,7 +15,6 @@ authRoutes.post(
     '/login',
     [check('email').isEmail(), check('password').isLength({ min: 8 })],
     validateRequest,
-    // validateInputs(login)?
     catchErrors(login)
 );
 
@@ -23,7 +22,6 @@ authRoutes.post(
     '/register',
     [check('email').isEmail(), check('password').isLength({ min: 8 })],
     validateRequest,
-    // validateInputs(register)?
     catchErrors(register)
 );
 

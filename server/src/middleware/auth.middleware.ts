@@ -25,11 +25,11 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
     next();
 }
 
-export function isOwnerOrAdmin(req: Request, res: Response, next: NextFunction): void {
+export function isOwner(req: Request, res: Response, next: NextFunction): void {
     const user = req.user as AuthenticatedUser;
     const id = user.userId;
 
-    console.log('ID FROM isOwnerOrAdmin: ', id);
+    console.log('ID FROM isOwner: ', id);
     // not sure if check should be for owner AND admin or if they should be separated
     // maybe separate admin routes? although it feels unnecessary
 
